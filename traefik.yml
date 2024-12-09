@@ -1,0 +1,40 @@
+x-defaults: &defaults
+  networks:
+    - default
+    - traefik
+
+services:
+  redis:
+    networks:
+      - default
+
+  postgres:
+    networks:
+      - default
+
+  usershub:
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.usershub.middlewares=hardening@docker"
+
+  taxhub:
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.taxhub.middlewares=hardening@docker"
+
+  geonature-backend:
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.geonature-backend.middlewares=hardening@docker"
+
+  geonature-frontend:
+    networks:
+      - default
+      - traefik
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.geonature.middlewares=hardening@docker"
+
+networks:
+  traefik:
+    external: true

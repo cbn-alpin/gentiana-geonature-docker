@@ -4,6 +4,8 @@ services:
       - default
 
   postgres:
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT}:5432"
     networks:
       - default
 
@@ -13,7 +15,9 @@ services:
       - traefik
     labels:
       - "traefik.docker.network=traefik"
+      - "traefik.http.routers.taxhub.entrypoints=web,websecure"
       - "traefik.http.routers.taxhub.middlewares=hardening@docker"
+      - "traefik.http.routers.taxhub.tls.certresolver=myresolver"
 
   usershub:
     networks:
@@ -21,7 +25,9 @@ services:
       - traefik
     labels:
       - "traefik.docker.network=traefik"
+      - "traefik.http.routers.usershub.entrypoints=web,websecure"
       - "traefik.http.routers.usershub.middlewares=hardening@docker"
+      - "traefik.http.routers.usershub.tls.certresolver=myresolver"
 
   geonature-backend:
     networks:
@@ -29,7 +35,9 @@ services:
       - traefik
     labels:
       - "traefik.docker.network=traefik"
+      - "traefik.http.routers.geonature-backend.entrypoints=web,websecure"
       - "traefik.http.routers.geonature-backend.middlewares=hardening@docker"
+      - "traefik.http.routers.geonature-backend.tls.certresolver=myresolver"
 
   geonature-frontend:
     networks:
@@ -37,7 +45,9 @@ services:
       - traefik
     labels:
       - "traefik.docker.network=traefik"
+      - "traefik.http.routers.geonature.entrypoints=web,websecure"
       - "traefik.http.routers.geonature.middlewares=hardening@docker"
+      - "traefik.http.routers.geonature.tls.certresolver=myresolver"
 
   geonature-install-db:
     networks:

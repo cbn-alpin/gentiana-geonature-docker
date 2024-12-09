@@ -7,14 +7,6 @@ services:
     networks:
       - default
 
-  usershub:
-    networks:
-      - default
-      - traefik
-    labels:
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.usershub.middlewares=hardening@docker"
-
   taxhub:
     networks:
       - default
@@ -22,6 +14,14 @@ services:
     labels:
       - "traefik.docker.network=traefik"
       - "traefik.http.routers.taxhub.middlewares=hardening@docker"
+
+  usershub:
+    networks:
+      - default
+      - traefik
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.usershub.middlewares=hardening@docker"
 
   geonature-backend:
     networks:
@@ -38,6 +38,14 @@ services:
     labels:
       - "traefik.docker.network=traefik"
       - "traefik.http.routers.geonature.middlewares=hardening@docker"
+
+  geonature-install-db:
+    networks:
+      - default
+
+  geonature-worker:
+    networks:
+      - default
 
 networks:
   traefik:

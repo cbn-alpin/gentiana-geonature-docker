@@ -8,6 +8,9 @@ services:
       - "127.0.0.1:${POSTGRES_HOST_PORT}:5432"
     networks:
       - default
+    volumes:
+      # Add data directory to use with COPY FROM
+      - ${GENTIANA_DATA_PATH}:/app/geonature/data/raw/
 
   taxhub:
     networks:
